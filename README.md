@@ -2,7 +2,7 @@
 
 Unofficial implementation of NCNet using flax and jax.
 
-TODO:
+## TODO:
  - [X] Implement NCNet
- - [ ] Implement training code(Using Div2K dataset in tfds)
+ - [X] Implement training code(Using Div2K dataset in tfds)
  - [ ] Implement tensorflow lite conversion code

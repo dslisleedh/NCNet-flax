@@ -6,7 +6,7 @@ import einops
 import flax
 from flax import linen as nn
 
-from typing import Optional
+from typing import Optional, Callable
 
 
 def nearest_conv_init(
@@ -55,6 +55,6 @@ class NCNet(nn.Module):
 if __name__ == '__main__':
     # Test and Visualize
     x = jnp.ones((1, 256, 256, 3))
-    model = NCNet(64, 3)
+    model = NCNet(32, 3)
     rng = jax.random.PRNGKey(0)
     print(model.tabulate(rng, x))
