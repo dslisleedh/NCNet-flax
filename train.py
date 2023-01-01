@@ -1,5 +1,6 @@
 import hydra
 from hydra.utils import get_original_cwd
+from omegaconf import OmegaConf
 
 import tensorflow as tf
 tf.config.set_visible_devices([], 'GPU')
@@ -29,6 +30,8 @@ def main(config):
     seed = config.seed
     tf.random.set_seed(seed)
     np.random.seed(seed)
+
+    result = dict()
 
     state = create_train_state(config)
 
@@ -93,8 +96,10 @@ def main(config):
                     if patience > config['train']['patience']:
                         break
 
-            if i + 1 == config['train']['steps']:
+            if i == config['train']['steps']:
                 break
+
+    result['train_psnr'] = watch_val
 
     # Fine-tune with large patch size
     state = checkpoints.restore_checkpoint(ckpt_dir='ckpts', target=state)
@@ -158,9 +163,12 @@ def main(config):
                     if patience > config['train']['patience']:
                         break
 
-            if i + 1 == config["fine_tuning"]["steps"]:
+            if i == config["fine_tuning"]["steps"]:
                 break
 
+    result['fine_tune_psnr'] = watch_val
+
+    OmegaConf.save(OmegaConf.create(result), 'result.yaml')
 
 if __name__ == '__main__':
     main()
