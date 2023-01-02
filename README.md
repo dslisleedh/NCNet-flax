@@ -1,5 +1,7 @@
 # NCNet-flax
 
+![Model](https://github.com/Algolzw/NCNet/blob/main/figs/ts.png)
+
 Unofficial implementation of NCNet using flax and jax.  
 Paper: https://arxiv.org/abs/2208.11609  
 Official code(tensorflow2, pytorch): https://github.com/Algolzw/NCNet  
