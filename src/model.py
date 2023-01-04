@@ -33,9 +33,9 @@ class NCNet(nn.Module):
         nearest_conv_kernel = self.variable(
             'nearest_conv', 'kernel', lambda: nearest_conv_init(x.shape[-1], out_c, self.scale_factor)
         )
-
+        nc_kernel = lax.stop_gradient(nearest_conv_kernel.value)
         skip = lax.conv_general_dilated(
-            x, nearest_conv_kernel.value, (1, 1), 'VALID', dimension_numbers=('NHWC', 'HWIO', 'NHWC'),
+            x, nc_kernel, (1, 1), 'VALID', dimension_numbers=('NHWC', 'HWIO', 'NHWC'),
         )
         for i in range(7):
             x = nn.Conv(
