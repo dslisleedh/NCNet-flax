@@ -71,7 +71,8 @@ def main(config):
                     valid_np_ds = valid_ds.as_numpy_iterator()
                     for n in tbar:
                         valid_batch = next(valid_np_ds)
-                        y, y_hat = inference(state, valid_batch)
+                        x, y = valid_batch
+                        y_hat = inference(x, state)
                         val_metrics = metrics(y, y_hat)
                         valid_loss_list.append(val_metrics['l1_loss'])
                         valid_psnr_list.append(val_metrics['psnr'])
@@ -138,7 +139,8 @@ def main(config):
                     valid_np_ds = valid_ds.as_numpy_iterator()
                     for n in tbar:
                         valid_batch = next(valid_np_ds)
-                        y, y_hat = inference(state, valid_batch)
+                        x, y = valid_batch
+                        y_hat = inference(x, state)
                         val_metrics = metrics(y, y_hat)
                         valid_loss_list.append(val_metrics['l1_loss'])
                         valid_psnr_list.append(val_metrics['psnr'])

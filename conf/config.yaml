@@ -5,7 +5,7 @@ train:
   n_filters: 32
   steps: 500000
   check_every: 1000
-  patience: 5  # check every * patience steps
+  patience: 10  # check every * patience steps
   batch_size: 64
   lr_image_size: 64
   lr:

@@ -20,6 +20,7 @@ import optax
 
 import os
 from tqdm import tqdm
+from typing import Callable
 
 
 def l1_loss(x, y):
@@ -27,8 +28,8 @@ def l1_loss(x, y):
 
 
 def metrics(x, y):
-    x_tf = tf.convert_to_tensor(x)
-    y_tf = tf.convert_to_tensor(y)
+    x_tf = tf.math.round(tf.convert_to_tensor(x))
+    y_tf = tf.math.round(tf.convert_to_tensor(y))
     return {
         'l1_loss': float(l1_loss(x, y)),
         'psnr': float(tf.reduce_mean(tf.image.psnr(x_tf, y_tf, max_val=255.))),
@@ -78,7 +79,6 @@ def train_step(state, batch):
 
 
 @jax.jit
-def inference(state, batch):
-    x, y = batch
+def inference(x, state):
     y_hat = state.apply_fn(state.params, x)
-    return y, y_hat
+    return y_hat
