@@ -19,7 +19,7 @@ def nearest_conv_init(
             ), (1, 1, -1, input_c)
         ), (0, 1, 3, 2)
     )
-    return kernel
+    return lax.stop_gradient(kernel)
 
 
 class NCNet(nn.Module):
